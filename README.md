@@ -96,13 +96,13 @@ Os usuários são reais (criados no Supabase Auth, com perfis `admin` e `analist
 Build validado com `npm run build`, e o fluxo principal (login, cards de atividade, seleção diretoria → equipe, notas com autosave, edição de perfil) testado de ponta a ponta antes da entrega.
 <br><br>
 🛠️ Ferramentas utilizadas:
-Vite - build e desenvolvimento
+- Vite - build e desenvolvimento
 <br>
-1. JavaScript - lógica da aplicação
+- JavaScript - lógica da aplicação
 <br>
-2. Supabase - autenticação e banco de dados (PostgreSQL)
+- Supabase - autenticação e banco de dados (PostgreSQL)
 <br>
-3. Vercel - deploy e hospedagem
+- Vercel - deploy e hospedagem
 <br><br>
 
 <br>
