@@ -96,6 +96,7 @@ Os usuários são reais (criados no Supabase Auth, com perfis `admin` e `analist
 Build validado com `npm run build`, e o fluxo principal (login, cards de atividade, seleção diretoria → equipe, notas com autosave, edição de perfil) testado de ponta a ponta antes da entrega.
 <br><br>
 🛠️ Ferramentas utilizadas:
+<br>
 - Vite - build e desenvolvimento
 <br>
 - JavaScript - lógica da aplicação
