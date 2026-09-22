@@ -44,8 +44,8 @@ header {
 
 /* NOVA LOGO (IMAGEM) */
 .logo-img {
-  width: 100px;
-  height: 100px;
+  width: 32px;
+  height: 32px;
   object-fit: contain;
   display: block;
 }
@@ -681,3 +681,5 @@ hr.md { border: none; border-top: 1px solid var(--border); margin: 1rem 0; }
   .date-banner { flex-direction: column; align-items: flex-start; gap: 10px; }
   .progress-bar { width: 100%; }
 }
+
+/*fix: reduz logo-img de 100px para 32px no header*/
