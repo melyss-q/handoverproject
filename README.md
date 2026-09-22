@@ -1,85 +1,108 @@
-# Handover Diário — Porto Vale (v2)
+<div align="center">
+<h2> 🔄 Handover Diário
 
-Reorganização do app de passagem de plantão da Equipe GRE: saiu de um único
-arquivo HTML para um projeto modular (Vite + JavaScript puro, sem
-framework), com autenticação real via Supabase Auth no lugar de senhas em
-texto puro no código-fonte.
+Equipe GRE
 
-## Rodando localmente
+![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
+![Supabase](https://img.shields.io/badge/Supabase-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?style=for-the-badge&logo=postgresql&logoColor=white)
+![Vercel](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)
 
-```bash
-npm install
-npm run dev       # ambiente de desenvolvimento, com recarregamento automático
-npm run build     # gera a versão de produção na pasta dist/
-npm run preview   # serve a pasta dist/ localmente, para conferir antes de publicar
+<h3> Aplicação de passagem de plantão diário da equipe, reconstruída de um arquivo HTML único para uma estrutura modular, com autenticação e permissões reais.
+
+</div>
+
+📌 `Sobre o projeto:`
+
+Primeiramente, a ideia do projeto partiu de mim quando tive que lidar com trocas de turnos dos assistentes e aprendizes e nisso, algumas informações se perdiam. Desse modo, com o incentivo da liderança, resolvi criar a versão piloto do projeto (na apresentação, havia apenas a versão HTML). O projeto em rendeu uma medalha e me procuraram para que fosse implementado, desse modo, surgiu a versão atual, onde me dediquei para melhorar os aspectos mencionados:
+
+O `Handover Diário` existia como um único arquivo HTML (login com senhas fixas escritas no próprio código, sem separação entre páginas, sem controle real de quem podia editar o quê). Este projeto reconstrói a aplicação que criei do zero, mantendo a mesma ideia e o mesmo fluxo que eu inicialmente apresentei, mas sobre uma base mais estruturada: páginas separadas, autenticação de verdade e permissões por perfil de usuário.
+
+✨ `Destaques:`
+	
+🔐 Autenticação real: Login por e-mail e senha via Supabase Auth, substituindo senhas fixas no código
+<br>
+🧩 Estrutura modular: De um HTML único para páginas, layouts, componentes e serviços separados
+<br>
+👥 Perfis e permissões: Regras de acesso por perfil (admin / analista) aplicadas direto no banco
+<br>
+💾 Autosave: Notas de plantão salvas automaticamente, sem perder o trabalho
+<br>
+<br>
+🧩 `Estrutura do app:`
+| Página | Função |
+|---|---|
+| Login | Autenticação por e-mail e senha |
+| Handover | Registro da passagem de plantão, com cards de atividade |
+| Ver | Consulta das passagens de plantão já registradas |
+| Notas | Anotações rápidas com autosave |
+| Config | Edição de perfil de usuário (acesso restrito a admin) |
+<br>
+
+🖼️ `Capturas de tela`
+<!-- Depois de subir as imagens no repositório, troque os nomes abaixo pelos nomes reais dos arquivos -->
+<div align="center">
+
+<img src="prints/Handover01.png" width="800" alt="Tela de handover">
+<br><br>
+<img src="prints/HANDOVER02.png" width="800" alt="Tela do app">
+<br><br>
+<img src="prints/HANDOVER03.png" width="800" alt="Tela do app">
+<br><br>
+<img src="prints/HANDOVER04.png" width="800" alt="Tela do app">
+<br><br>
+<img src="prints/HANDOVER05.png" width="800" alt="Tela do app">
+<br><br>
+<img src="prints/HANDOVER_ADM.png" width="800" alt="Tela de configuração (admin)">
+
+</div>
+
+<br>
+
+🏗️ `Arquitetura técnica:`
+
+Vite + JavaScript puro - sem framework, para manter o projeto leve e simples de manter
+<br>
+Supabase - autenticação (Supabase Auth) e banco de dados (PostgreSQL)
+<br>
+Vercel - hospedagem
+<br>
+<br>
+Organização do código:
 ```
-
-As credenciais do Supabase já estão em `.env` (copiado de `.env.example`).
-A chave usada é a `publishable` (equivalente à antiga `anon`) — pode ficar
-exposta no navegador, não é secreta.
-
-## O que falta você fazer
-
-- **Logo**: o app espera um arquivo `LOGO.png` dentro da pasta `public/`
-  (aparece na tela de login e no cabeçalho). Ele não veio incluído porque
-  não estava embutido no HTML original — é só copiar o arquivo da logo da
-  Porto Vale para `public/LOGO.png`.
-- **Publicar no Vercel**: aponte o projeto para a pasta raiz normalmente —
-  o Vercel detecta Vite automaticamente. Configure as duas variáveis de
-  ambiente do `.env` (`VITE_SUPABASE_URL` e `VITE_SUPABASE_ANON_KEY`) nas
-  configurações do projeto na Vercel.
-- **Senhas dos 11 acessos**: foram entregues em um arquivo CSV separado
-  (não fica salvo em nenhum lugar além desse arquivo). Peça para cada
-  pessoa trocar a senha no primeiro acesso, se quiser reforçar a segurança
-  (dá pra fazer isso depois, não é bloqueante).
-
-## Principais mudanças de comportamento (intencionais)
-
-1. **Login por e-mail e senha real**, em vez de escolher o nome numa lista.
-   Isso é uma consequência direta de trocar senhas fixas no código por
-   contas de verdade no Supabase Auth — com autenticação real, o sistema
-   não pode mais mostrar a lista de nomes/senhas antes de alguém entrar.
-2. **"Trocar usuário" agora desconecta e volta para o login.** Antes dava
-   pra alternar entre pessoas sem digitar senha de novo; com contas reais,
-   trocar de pessoa exige login de novo (mais seguro, mas um passo a mais).
-3. **A aba Configurar não tem mais senha própria.** Antes existia uma
-   segunda senha (`CONFIG_PW`) só pra essa aba. Agora quem entra como admin
-   (perfil "admin" no Supabase) já vê a aba liberada — a segurança real
-   está nas contas e no banco, não numa segunda senha decorável no código.
-4. **Cadastro de pessoas novas continua exigindo o painel do Supabase.**
-   Dá pra editar turno, cor e perfil de quem já existe direto pelo app
-   (aba Configurar → Gestão da equipe), mas criar um *login* novo não pode
-   ser feito pelo navegador sem expor uma chave secreta — por segurança,
-   isso continua sendo feito no painel do Supabase (posso te ajudar
-   sempre que precisar).
-5. **Atividades pontuais e notas pessoais continuam salvas no navegador**
-   de cada computador (como já era no site original) — não sincronizam
-   entre dispositivos. Isso não é um bug novo, é uma limitação que já
-   existia; se fizer sentido migrar isso para o banco de dados também
-   (para sincronizar entre computadores), posso fazer como um próximo
-   passo.
-6. **O campo "turno" não é mais fixo por pessoa.** Como combinado, ele virou
-   um campo editável (Configurar → Gestão da equipe) em vez de algo
-   definido no cadastro inicial — pode ficar em branco até você definir.
-7. A coluna "Turno" saiu da tabela de handovers salvos (ela não fazia mais
-   sentido junto com o registro, já que agora é só um dado de perfil).
-
-## Estrutura do projeto
-
-```
-index.html                 shell mínimo, carrega src/main.js
 src/
-  main.js                  ponto de entrada: decide login vs. app autenticado
-  supabaseClient.js        cliente do Supabase (usa variáveis de ambiente)
-  data/config.js           diretorias/equipes, atividades fixas, cores, turnos
-  state/appState.js        estado compartilhado em memória (perfil, formulário, notas...)
-  auth/authService.js      login/logout/sessão + leitura e edição de perfis
-  router/viewRouter.js      alterna qual aba/painel está visível
-  layouts/
-    AppShell.js            cabeçalho + abas + painéis (chrome autenticado)
-    LoginLayout.js          tela cheia da página de login
-  pages/
-    LoginPage.js, HandoverPage.js, VerPage.js, NotasPage.js, ConfigPage.js
-  components/
-    ActivityCard.js, MultiSelect.js, StatusBadge.js
+├── pages/       → Login, Handover, Ver, Notas, Config
+├── layouts/      → AppShell, LoginLayout
+├── components/   → ActivityCard, MultiSelect, StatusBadge
+├── services/      → authService.js (autenticação)
+└── state/         → appState.js (estado compartilhado entre páginas)
 ```
+`Banco de dados e segurança:`
+<br>
+O banco tem duas tabelas principais - `usuarios` e `handovers` - com Row Level Security (RLS) habilitado:
+<br>
+Leitura liberada para qualquer usuário autenticado
+<br>
+Escrita (inserir/editar/excluir) restrita ao próprio dono do registro ou a um usuário com perfil admin
+<br>
+Os usuários são reais (criados no Supabase Auth, com perfis `admin` e `analista`), substituindo a lista de nomes com senha fixa da versão anterior. A criação de novos logins continua feita pelo painel do Supabase, de propósito, para não expor credenciais sensíveis (`service_role`) no navegador.
+<br>
+<br>
+`Testes:`
+<br>
+Build validado com `npm run build`, e o fluxo principal (login, cards de atividade, seleção diretoria → equipe, notas com autosave, edição de perfil) testado de ponta a ponta antes da entrega.
+<br><br>
+🛠️ Ferramentas utilizadas:
+Vite - build e desenvolvimento
+<br>
+1. JavaScript - lógica da aplicação
+<br>
+2. Supabase - autenticação e banco de dados (PostgreSQL)
+<br>
+3. Vercel - deploy e hospedagem
+<br><br>
+
+<br>
+<h2>👤 Sobre mim </h2>
+Melyssa Costa - Analista Dados (na área de BI) na Porto Vale, com experiência prévia em BI (Power BI e Power Automate) na Pilkington Brasil.
