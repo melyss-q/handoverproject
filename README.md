@@ -44,6 +44,8 @@ O `Handover Diário` existia como um único arquivo HTML (login com senhas fixas
 <!-- Depois de subir as imagens no repositório, troque os nomes abaixo pelos nomes reais dos arquivos -->
 <div align="center">
 
+<img src="prints/HANDOVER_CAPA.png" width="800" alt="Tela de handover">
+<br><br>
 <img src="prints/Handover01.png" width="800" alt="Tela de handover">
 <br><br>
 <img src="prints/HANDOVER02.png" width="800" alt="Tela do app">
